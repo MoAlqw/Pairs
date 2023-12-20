@@ -1,4 +1,4 @@
-package com.example.pairs.model
+package com.example.pairs.viewmodel
 
 import android.view.View
 import androidx.appcompat.widget.AppCompatImageButton
