@@ -1,24 +1,29 @@
 package com.example.pairs.viewmodel
 
 import android.content.Context
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.pairs.model.SharedPreferencesPoints
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 
 class MainActivityViewModel: ViewModel() {
 
-//    fun get_points(context: Context): String {
-//
-//        val points = async {
-//            SharedPreferencesPoints(context).getPoints()
-//        }
-//    }
+    private val _points = MutableLiveData<String>()
+    val points: LiveData<String> = _points
 
-    companion object{
+    fun getPoints(context: Context) {
+        _points.value = SharedPreferencesPoints(context).getPoints()
+    }
+
+    fun savePoints(context: Context, newPoints: String) {
+        SharedPreferencesPoints(context).savePoints(newPoints)
+        _points.value = newPoints
+    }
+
+    companion object {
+
         const val SHARED_PREFERENCES = "shared"
-        const val POINTS_KEY = "points"
+
     }
 
 }

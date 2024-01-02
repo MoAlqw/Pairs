@@ -11,13 +11,13 @@ import com.example.pairs.databinding.FragmentMenuViewBinding
 
 class MenuView : Fragment() {
 
-    private lateinit var points: String
+    private lateinit var coins: String
     private lateinit var binding: FragmentMenuViewBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            points = it.getString(KEY_POINTS)!!
+        arguments.let {
+            coins = it?.getString(KEY_POINTS) ?: "0"
         }
     }
 
@@ -28,6 +28,8 @@ class MenuView : Fragment() {
 
         binding = FragmentMenuViewBinding.inflate(inflater, container, false)
 
+        binding.tvCoins.text = coins
+
         binding.license.setOnClickListener{
             showToast()
         }
@@ -35,7 +37,7 @@ class MenuView : Fragment() {
         binding.btnStartGame.setOnClickListener{
             requireActivity().supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.fragment, GameScene())
+                .replace(R.id.fragment, GameScene.newInstance(coins))
                 .commit()
         }
 
@@ -59,4 +61,5 @@ class MenuView : Fragment() {
                 }
             }
     }
+
 }
